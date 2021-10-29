@@ -62,37 +62,3 @@ void init_player() {
     }
   }
 }
-
-void playFile(const char *filename)
-{
-  Serial.print("Playing file: ");
-  Serial.println(filename);
-
-  // Start playing the file.  This sketch continues to
-  // run while the file plays.
-  playSdWav1.play(filename);
-
-  // // A brief delay for the library read WAV info
-  // delay(5);
-
-  // // Simply wait for the file to finish playing.
-  // while (playWav1.isPlaying()) {
-  //   // uncomment these lines if you audio shield
-  //   // has the optional volume pot soldered
-  //   //float vol = analogRead(15);
-  //   //vol = vol / 1024;
-  //   // sgtl5000_1.volume(vol);
-  // }
-}
-
-
-// void loop() {
-//   playFile("SDTEST1.WAV");  // filenames are always uppercase 8.3 format
-//   delay(500);
-//   playFile("SDTEST2.WAV");
-//   delay(500);
-//   playFile("SDTEST3.WAV");
-//   delay(500);
-//   playFile("SDTEST4.WAV");
-//   delay(1500);
-// }
