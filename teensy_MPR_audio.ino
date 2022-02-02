@@ -1,5 +1,5 @@
 /*
-Simple arduino sketch to show three MPR121 boards working at the same time and then triggering wav files using the
+Simple arduino sketch to show four MPR121 boards working at the same time and then triggering wav files using the
 Teensy Audio shield on a Teensy 4
 
 On the MPR121 remember to set the address pins.
@@ -18,17 +18,27 @@ https://github.com/gawainhewitt
 
 #include "mpr121.h"
 #include "wavFilePlayer.h"
+#include "reboot.h"
+
+const int rebootButton = 9;
 
 void setup() {
 Serial.begin(9600);
 init_mpr121();
 init_player();
+pinMode(rebootButton, INPUT_PULLUP);
+
 }
 
 void loop() {
 currtouched1 = mprBoard_A.touched();
 currtouched2 = mprBoard_B.touched();
 currtouched3 = mprBoard_C.touched();
+// currtouched4 = mprBoard_D.touched();
+
+if(digitalRead(rebootButton) == LOW){
+    doReboot();
+}
 
 //For A----------------------------------------------------------
 for (uint8_t i=0; i<12; i++) {
@@ -68,10 +78,23 @@ for (uint8_t i=0; i<12; i++) {
     Serial.print(i); Serial.println(" released of C");
     playSdWav3.stop();
     }
+
+    // //For D----------------------------------------------------------
+    // if ((currtouched4 & _BV(i)) && !(lasttouched4 & _BV(i)) ) {
+    // Serial.print(i); Serial.println(" touched of D");
+
+    // playSdWav4.play("SDTEST4.WAV");
+    // }
+
+    // if (!(currtouched4 & _BV(i)) && (lasttouched4 & _BV(i)) ) {
+    // Serial.print(i); Serial.println(" released of D");
+    // playSdWav4.stop();
+    // }
 }
 
 lasttouched1 = currtouched1;
 lasttouched2 = currtouched2;
 lasttouched3 = currtouched3;
+// lasttouched4 = currtouched4;
 return;
 }

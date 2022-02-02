@@ -5,6 +5,7 @@
 Adafruit_MPR121 mprBoard_A = Adafruit_MPR121();
 Adafruit_MPR121 mprBoard_B = Adafruit_MPR121();
 Adafruit_MPR121 mprBoard_C = Adafruit_MPR121();
+// Adafruit_MPR121 mprBoard_D = Adafruit_MPR121();
 
 uint16_t lasttouched1 = 0;
 uint16_t currtouched1 = 0;
@@ -14,6 +15,9 @@ uint16_t currtouched2 = 0;
 
 uint16_t lasttouched3 = 0;
 uint16_t currtouched3 = 0;
+
+// uint16_t lasttouched4 = 0;
+// uint16_t currtouched4 = 0;
 
 void init_mpr121()
 {
@@ -34,4 +38,10 @@ void init_mpr121()
     while (1);
     }
     Serial.println("MPR121 C found!");
+
+    // if (!mprBoard_D.begin(0x5D)) {
+    // Serial.println("MPR121 D not found, check wiring?");
+    // while (1);
+    // }
+    // Serial.println("MPR121 D found!");
 }
